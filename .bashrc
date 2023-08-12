@@ -119,7 +119,35 @@ if ! shopt -oq posix; then
   fi
 fi
 
-alias tmux='tmux -u'
 PATH="/opt/homebrew/bin:$PATH"
 alias rm='/usr/local/bin/rm.sh'
+alias g++='g++-12'
+alias gcc='gcc-12'
 
+tmux ls | grep $USER > /dev/null
+# if no main tmux session, create one
+if [ $? != 0 ]
+then
+   tmux new-session -u -A -s $USER
+fi
+
+# if not run in tmux, attach to the session
+if [ -z "$TMUX" ] && [ ${UID} != 0 ]
+then
+   exec tmux new-session -A -s $USER
+fi
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/homebrew/Caskroom/miniconda/base/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh" ]; then
+        . "/opt/homebrew/Caskroom/miniconda/base/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/homebrew/Caskroom/miniconda/base/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
