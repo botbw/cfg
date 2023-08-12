@@ -1,5 +1,6 @@
 #!bin/bash
 
-ln -s ~/ .vimrc
-ln -s ~/ .zshrc
-ln -s ~/ .tmux.conf
+cp .bashrc ~/.profile
+cp .vimrc ~
+cp .tmux.conf ~
+cp rm.sh /usr/local/bin

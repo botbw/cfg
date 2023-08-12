@@ -2,6 +2,9 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 
+# clean msg before login
+clear
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -57,7 +60,7 @@ if [ -n "$force_color_prompt" ]; then
 fi
 
 if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
@@ -116,5 +119,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/home/acs/.homework:$PATH
 alias tmux='tmux -u'
+PATH="/opt/homebrew/bin:$PATH"
+alias rm='/usr/local/bin/rm.sh'
+
