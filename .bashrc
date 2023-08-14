@@ -128,13 +128,13 @@ tmux ls | grep $USER > /dev/null
 # if no main tmux session, create one
 if [ $? != 0 ]
 then
-   tmux new-session -u -A -s $USER
+   tmux new-session -d -s $USER
 fi
 
 # if not run in tmux, attach to the session
 if [ -z "$TMUX" ] && [ ${UID} != 0 ]
 then
-   exec tmux new-session -A -s $USER
+   exec tmux attach-session -t $USER
 fi
 
 # >>> conda initialize >>>
